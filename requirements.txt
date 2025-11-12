@@ -1,0 +1,4 @@
+pillow~=11.0.0
+luma.oled
+luma~=2.3.20
+W1ThermSensor

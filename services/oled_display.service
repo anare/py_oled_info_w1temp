@@ -1,0 +1,15 @@
+[Unit]
+Description=OLED Display Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/bin/oled_display.py
+WorkingDirectory=/opt/bin
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=anare
+Group=anare
+
+[Install]
+WantedBy=multi-user.target
