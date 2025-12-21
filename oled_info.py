@@ -13,6 +13,7 @@ from luma.oled.device import ssd1306
 from luma.core.render import canvas
 from PIL import Image, ImageFont
 from w1thermsensor import W1ThermSensor
+import json
 
 base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob(base_dir + '28*')[0]
@@ -286,6 +287,14 @@ while True:
     z = 0
     while t > -1:
         values = read_all_w1_temp()
+
+        try:
+            sensors_data = {s.id: s.get_temperature() for s in W1ThermSensor.get_available_sensors()}
+            with open('/tmp/sensors.json', 'w') as jf:
+                json.dump(sensors_data, jf)
+        except Exception as e:
+            print(f"Error writing sensors json: {e}")
+
         #r = list(reversed(values))
         #v = r.pop()
         v = values.pop()
